@@ -6,7 +6,7 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
                            QIcon, QImage, QKeySequence, QLinearGradient,
                            QPainter, QPalette, QPixmap, QRadialGradient,
                            QTransform)
-from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QMainWindow,
+from PySide6.QtWidgets import (QApplication, QLabel, QFrame, QHBoxLayout, QMainWindow,
                                QMenu, QMenuBar, QPushButton, QSizePolicy,
                                QSpacerItem, QSpinBox, QVBoxLayout, QWidget)
 
@@ -20,7 +20,6 @@ class View():
         MainWindow.setMinimumSize(QSize(500, 300))
         MainWindow.setMouseTracking(False)
         MainWindow.setAutoFillBackground(False)
-        MainWindow.setStyleSheet(u"color: #d1d1cc;")
         self.choose_file_action = QAction(MainWindow)
         self.choose_file_action.setObjectName(u"choose_file_action")
         self.save_action = QAction(MainWindow)
@@ -56,12 +55,13 @@ class View():
         self.about_action = QAction(MainWindow)
         self.about_action.setObjectName(u"about_action")
         icon = QIcon()
-        icon.addFile(u"gui/img/github_logo.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u"img/github_logo.png", QSize(), QIcon.Normal, QIcon.Off)
         self.about_action.setIcon(icon)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.centralwidget.setStyleSheet(u"border: 1px solid #4d4e51;\n"
-                                         "background-color: #1e1f22;")
+                                         "background-color: #1e1f22;"
+                                         "color: #d1d1cc;")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName(u"verticalLayout")
@@ -108,14 +108,14 @@ class View():
 
         self.horizontalLayout_2.addWidget(self.turn_right_5_btn)
 
-        self.spinBox = QSpinBox(self.header_widget)
-        self.spinBox.setObjectName(u"spinBox")
-        self.spinBox.setStyleSheet(u"color: white;\n"
-                                   "")
-        self.spinBox.setMinimum(-360)
-        self.spinBox.setMaximum(360)
+        self.rotate_angle_spinbox = QSpinBox(self.header_widget)
+        self.rotate_angle_spinbox.setObjectName(u"rotate_angle_spinbox")
+        self.rotate_angle_spinbox.setStyleSheet(u"color: white;\n"
+                                                "")
+        self.rotate_angle_spinbox.setMinimum(-360)
+        self.rotate_angle_spinbox.setMaximum(360)
 
-        self.horizontalLayout_2.addWidget(self.spinBox)
+        self.horizontalLayout_2.addWidget(self.rotate_angle_spinbox)
 
         self.horizontalSpacer = QSpacerItem(872, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
@@ -137,11 +137,11 @@ class View():
         self.verticalLayout_4.setSpacing(1)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.verticalLayout_4.setContentsMargins(1, 1, 1, 1)
-        self.pushButton = QPushButton(self.panel_left_widget)
-        self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setMinimumSize(QSize(0, 25))
+        self.draw_circle_instr = QPushButton(self.panel_left_widget)
+        self.draw_circle_instr.setObjectName(u"draw_circle_instr")
+        self.draw_circle_instr.setMinimumSize(QSize(0, 25))
 
-        self.verticalLayout_4.addWidget(self.pushButton)
+        self.verticalLayout_4.addWidget(self.draw_circle_instr)
 
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
@@ -161,11 +161,12 @@ class View():
         self.verticalLayout_3.setSpacing(0)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.image_display_widget = QWidget(self.work_space_frame)
-        self.image_display_widget.setObjectName(u"image_display_widget")
-        self.image_display_widget.setStyleSheet(u"margin: 10px;")
+        self.image_display_label = QLabel(self.work_space_frame)
+        self.image_display_label.setObjectName(u"image_display_label")
+        self.image_display_label.setStyleSheet(u"margin: 10px;")
+        self.image_display_label.setAlignment(Qt.AlignJustify | Qt.AlignVCenter)
 
-        self.verticalLayout_3.addWidget(self.image_display_widget)
+        self.verticalLayout_3.addWidget(self.image_display_label)
 
         self.horizontalLayout.addWidget(self.work_space_frame)
 
@@ -282,14 +283,15 @@ class View():
                                                              None))
         self.turl_left_5_btn.setText(QCoreApplication.translate("MainWindow", u"<", None))
         self.turn_right_5_btn.setText(QCoreApplication.translate("MainWindow", u">", None))
-        self.spinBox.setSuffix(QCoreApplication.translate("MainWindow", u"\u00b0", None))
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Draw Sircle O", None))
+        self.rotate_angle_spinbox.setSuffix(QCoreApplication.translate("MainWindow", u"\u00b0", None))
+        self.draw_circle_instr.setText(QCoreApplication.translate("MainWindow", u"Draw Sircle", None))
         self.file_menu.setTitle(QCoreApplication.translate("MainWindow", u"\u0424\u0430\u0439\u043b", None))
         self.edit_menu.setTitle(QCoreApplication.translate("MainWindow", u"\u041f\u0440\u0430\u0432\u043a\u0430", None))
         self.channels_menu.setTitle(
             QCoreApplication.translate("MainWindow", u"\u041a\u0430\u043d\u0430\u043b\u044b", None))
         self.help_menu.setTitle(
             QCoreApplication.translate("MainWindow", u"\u0421\u043f\u0440\u0430\u0432\u043a\u0430", None))
+
     # retranslateUi
 
     def set_connections(self):
@@ -298,3 +300,22 @@ class View():
         :return:
         """
         self.choose_file_action.triggered.connect(self.load_image)
+
+        # Tries to capture an image from the vebcamera
+        self.vebcam_capture_action.triggered.connect(self.capture_image)
+
+        # RGB channels connections
+        self.red_channel_action.triggered.connect(self.show_channels)
+        self.green_channel_action.triggered.connect(self.show_channels)
+        self.blue_channel_action.triggered.connect(self.show_channels)
+
+        # Negative image connection
+        self.negative_action.triggered.connect(self.show_negative)
+
+        # Image rotation connections
+        self.rotate_angle_spinbox.valueChanged.connect(self.rotate_image)
+        self.turl_left_5_btn.pressed.connect(self.increase_current_rotation_angle_by_5_left)
+        self.turn_right_5_btn.pressed.connect(self.increase_current_rotation_angle_by_5_right)
+
+        # Draw circle connection
+        self.draw_circle_instr.pressed.connect(self.draw_circle)

@@ -16,15 +16,16 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QIcon, QImage, QKeySequence, QLinearGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
-from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QMainWindow,
-    QMenu, QMenuBar, QPushButton, QSizePolicy,
-    QSpacerItem, QSpinBox, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
+    QLayout, QMainWindow, QMenu, QMenuBar,
+    QPushButton, QSizePolicy, QSpacerItem, QSpinBox,
+    QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(900, 800)
+        MainWindow.resize(986, 859)
         MainWindow.setMinimumSize(QSize(500, 300))
         MainWindow.setMouseTracking(False)
         MainWindow.setAutoFillBackground(False)
@@ -69,7 +70,8 @@ class Ui_MainWindow(object):
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.centralwidget.setStyleSheet(u"border: 1px solid #4d4e51;\n"
-"background-color: #1e1f22;")
+"background-color: #1e1f22;\n"
+"color: #d1d1cc;")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName(u"verticalLayout")
@@ -116,14 +118,14 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_2.addWidget(self.turn_right_5_btn)
 
-        self.spinBox = QSpinBox(self.header_widget)
-        self.spinBox.setObjectName(u"spinBox")
-        self.spinBox.setStyleSheet(u"color: white;\n"
+        self.rotate_angle_spinbox = QSpinBox(self.header_widget)
+        self.rotate_angle_spinbox.setObjectName(u"rotate_angle_spinbox")
+        self.rotate_angle_spinbox.setStyleSheet(u"color: white;\n"
 "")
-        self.spinBox.setMinimum(-360)
-        self.spinBox.setMaximum(360)
+        self.rotate_angle_spinbox.setMinimum(-360)
+        self.rotate_angle_spinbox.setMaximum(360)
 
-        self.horizontalLayout_2.addWidget(self.spinBox)
+        self.horizontalLayout_2.addWidget(self.rotate_angle_spinbox)
 
         self.horizontalSpacer = QSpacerItem(872, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
@@ -146,11 +148,11 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.setSpacing(1)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.verticalLayout_4.setContentsMargins(1, 1, 1, 1)
-        self.pushButton = QPushButton(self.panel_left_widget)
-        self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setMinimumSize(QSize(0, 25))
+        self.draw_circle_instr = QPushButton(self.panel_left_widget)
+        self.draw_circle_instr.setObjectName(u"draw_circle_instr")
+        self.draw_circle_instr.setMinimumSize(QSize(0, 25))
 
-        self.verticalLayout_4.addWidget(self.pushButton)
+        self.verticalLayout_4.addWidget(self.draw_circle_instr)
 
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
@@ -170,12 +172,14 @@ class Ui_MainWindow(object):
         self.verticalLayout_3 = QVBoxLayout(self.work_space_frame)
         self.verticalLayout_3.setSpacing(0)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.verticalLayout_3.setSizeConstraint(QLayout.SetDefaultConstraint)
         self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.image_display_widget = QWidget(self.work_space_frame)
-        self.image_display_widget.setObjectName(u"image_display_widget")
-        self.image_display_widget.setStyleSheet(u"margin: 10px;")
+        self.image_display_label = QLabel(self.work_space_frame)
+        self.image_display_label.setObjectName(u"image_display_label")
+        self.image_display_label.setStyleSheet(u"margin: 10px;")
+        self.image_display_label.setAlignment(Qt.AlignJustify|Qt.AlignVCenter)
 
-        self.verticalLayout_3.addWidget(self.image_display_widget)
+        self.verticalLayout_3.addWidget(self.image_display_label)
 
 
         self.horizontalLayout.addWidget(self.work_space_frame)
@@ -280,13 +284,12 @@ class Ui_MainWindow(object):
         self.about_action.setText(QCoreApplication.translate("MainWindow", u"\u041e \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0435...", None))
         self.turl_left_5_btn.setText(QCoreApplication.translate("MainWindow", u"<", None))
         self.turn_right_5_btn.setText(QCoreApplication.translate("MainWindow", u">", None))
-        self.spinBox.setSuffix(QCoreApplication.translate("MainWindow", u"\u00b0", None))
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Draw Sircle O", None))
+        self.rotate_angle_spinbox.setSuffix(QCoreApplication.translate("MainWindow", u"\u00b0", None))
+        self.draw_circle_instr.setText(QCoreApplication.translate("MainWindow", u"Draw Sircle O", None))
+        self.image_display_label.setText("")
         self.file_menu.setTitle(QCoreApplication.translate("MainWindow", u"\u0424\u0430\u0439\u043b", None))
         self.edit_menu.setTitle(QCoreApplication.translate("MainWindow", u"\u041f\u0440\u0430\u0432\u043a\u0430", None))
         self.channels_menu.setTitle(QCoreApplication.translate("MainWindow", u"\u041a\u0430\u043d\u0430\u043b\u044b", None))
         self.help_menu.setTitle(QCoreApplication.translate("MainWindow", u"\u0421\u043f\u0440\u0430\u0432\u043a\u0430", None))
     # retranslateUi
-    # end of t
-
 
