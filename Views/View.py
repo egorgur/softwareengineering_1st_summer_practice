@@ -22,8 +22,8 @@ class View():
         MainWindow.setAutoFillBackground(False)
         self.choose_file_action = QAction(MainWindow)
         self.choose_file_action.setObjectName(u"choose_file_action")
-        self.save_action = QAction(MainWindow)
-        self.save_action.setObjectName(u"save_action")
+        # self.save_action = QAction(MainWindow)
+        # self.save_action.setObjectName(u"save_action")
         self.actionTrsfewfwefwe = QAction(MainWindow)
         self.actionTrsfewfwefwe.setObjectName(u"actionTrsfewfwefwe")
         self.actionerfgwergewrg = QAction(MainWindow)
@@ -55,7 +55,7 @@ class View():
         self.about_action = QAction(MainWindow)
         self.about_action.setObjectName(u"about_action")
         icon = QIcon()
-        icon.addFile(u"img/github_logo.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u"gui/img/github_logo.png", QSize(), QIcon.Normal, QIcon.Off)
         self.about_action.setIcon(icon)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -237,7 +237,7 @@ class View():
         self.menuBar.addAction(self.edit_menu.menuAction())
         self.menuBar.addAction(self.help_menu.menuAction())
         self.file_menu.addAction(self.choose_file_action)
-        self.file_menu.addAction(self.save_action)
+        # self.file_menu.addAction(self.save_action)
         self.file_menu.addAction(self.vebcam_capture_action)
         self.edit_menu.addAction(self.channels_menu.menuAction())
         self.edit_menu.addAction(self.negative_action)
@@ -256,8 +256,8 @@ class View():
         self.choose_file_action.setText(QCoreApplication.translate("MainWindow",
                                                                    u"\u0412\u044b\u0431\u0440\u0430\u0442\u044c \u0444\u0430\u0439\u043b...",
                                                                    None))
-        self.save_action.setText(
-            QCoreApplication.translate("MainWindow", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c", None))
+        # self.save_action.setText(
+        #     QCoreApplication.translate("MainWindow", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c", None))
         self.actionTrsfewfwefwe.setText(QCoreApplication.translate("MainWindow", u"Trsfewfwefwe", None))
         self.actionerfgwergewrg.setText(QCoreApplication.translate("MainWindow", u"erfgwergewrg", None))
         self.actionwegfwegwreg.setText(QCoreApplication.translate("MainWindow", u"wegfwegwreg", None))
@@ -279,7 +279,7 @@ class View():
                                                                       u"\u0421\u043d\u044f\u0442\u044c \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435 \u0441 \u043a\u0430\u043c\u0435\u0440\u044b",
                                                                       None))
         self.about_action.setText(QCoreApplication.translate("MainWindow",
-                                                             u"\u041e \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0435...",
+                                                             u"Github",
                                                              None))
         self.turl_left_5_btn.setText(QCoreApplication.translate("MainWindow", u"<", None))
         self.turn_right_5_btn.setText(QCoreApplication.translate("MainWindow", u">", None))
@@ -301,6 +301,9 @@ class View():
         """
         self.choose_file_action.triggered.connect(self.load_image)
 
+        # # Save file connection
+        # self.save_action.triggered.connect(self.save_image)
+
         # Tries to capture an image from the vebcamera
         self.vebcam_capture_action.triggered.connect(self.capture_image)
 
@@ -319,3 +322,6 @@ class View():
 
         # Draw circle connection
         self.draw_circle_instr.pressed.connect(self.draw_circle)
+
+        # GitHub repo href connection
+        self.about_action.triggered.connect(self.github_redirect)

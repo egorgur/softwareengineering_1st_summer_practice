@@ -1,8 +1,9 @@
+import os.path
 import sys
 import cv2
 from PySide6.QtWidgets import QApplication, QMainWindow, QFileDialog, QMessageBox, QInputDialog
-from PySide6.QtGui import QImage, QPixmap
-from PySide6.QtCore import Qt
+from PySide6.QtGui import QImage, QPixmap, QDesktopServices
+from PySide6.QtCore import Qt, QUrl
 
 from gui.ui_main import Ui_MainWindow
 from Views.View import View
@@ -145,11 +146,41 @@ class Application(QMainWindow, View):
         if not ok:
             return
 
-        circle_image = self.image.copy()
+        circle_image = self.modified_image.copy()
         (h, w) = self.image.shape[:2]
-        cv2.circle(circle_image, (x, h-y), radius, (0, 0, 255), 2)
-        self.modified_image = circle_image
+        cv2.circle(circle_image, (x, h - y), radius, (0, 0, 255), 2)
+        self.modified_image = circle_image.copy()
         self.display_image(circle_image)
+
+    def get_filtered_image(self):
+        self.show_channels()
+        return self.rgb_channels_modified_image
+
+
+    # def save_image(self):
+    #     if self.modified_image is None:
+    #         QMessageBox.warning(self, "Warning", "No image to save.")
+    #         return
+    #     if self.image is None:
+    #         QMessageBox.warning(self, "Warning", "No image to save.")
+    #         return
+    #
+    #     file_name, _ = QFileDialog.getSaveFileName(self, "Save Image File", "",
+    #                                                "PNG Files (*.png);;JPEG Files (*.jpg *.jpeg)")
+    #     file_name: str
+    #     print(os.path.join(file_name.split("/")))
+    #     print(file_name)
+    #     if file_name:
+    #         success = cv2.imwrite(file_name, self.get_filtered_image())
+    #         print(success)
+    #         if success:
+    #             QMessageBox.information(self, "Success", f"Image saved to {file_name}")
+    #         else:
+    #             QMessageBox.critical(self, "Error", "Failed to save image.")
+
+    def github_redirect(self):
+        url = QUrl("https://github.com/egorgur/softwareengineering_1st_summer_practice")
+        QDesktopServices.openUrl(url)
 
 
 # Press the green button in the gutter to run the script.
